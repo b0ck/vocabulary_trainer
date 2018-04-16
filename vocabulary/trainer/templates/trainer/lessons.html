@@ -1,0 +1,34 @@
+{% extends 'trainer/base.html' %}
+
+{% block content %}
+<div class="card">
+    <table class="table">
+        <tr>
+            <th>Lesson</th>
+            <th>Language</th>
+            <th>Status</th>
+            <th>Reset</th>
+        </tr>
+        {% for lesson in lessons %}
+        <tr>
+            <td>
+                <a href="/lesson/{{ lesson.lesson.id }}">{{ lesson.lesson }}</a>
+            </td>
+            <td>
+                {{ lesson.language.name }}
+            </td>
+            <td>
+                Solved: {{ lesson.done_count }} / {{ lesson.all_count }}
+            </td>
+            <td>
+                <form method="post" action="{% url 'reset_lesson' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="lesson_id" value="{{ lesson.lesson.id }}"/>
+                    <input type="submit" class="btn btn-outline-primary" value="Reset"/>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

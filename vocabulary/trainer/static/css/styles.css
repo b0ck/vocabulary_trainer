@@ -1,0 +1,17 @@
+.card {
+    margin: 20px 0;
+}
+
+.content {
+    margin: 0 20px;
+}
+
+.inactive {
+    border-color: #e9ecefa8;
+    background-color: #dee2e630
+}
+
+#logo {
+    filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg);
+    margin-right: 5px;
+}

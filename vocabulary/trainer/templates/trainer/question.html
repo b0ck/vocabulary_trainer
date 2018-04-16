@@ -1,0 +1,65 @@
+{% extends 'trainer/base.html' %}
+
+{% block content %}
+    <div class="card text-white bg-info">
+        <div class="card-body">
+            <h1>
+                {{ lesson.name }}
+                {% if lesson.description %}
+                    <small>> {{ lesson.description }}</small>
+                {% endif %}
+            </h1>
+        </div>
+    </div>
+
+    {% include 'trainer/status.html' %}
+
+    <div class="card border-warning">
+        <div class="card-header">
+            <div class="row">
+            <div class="col">
+            Learned vocabulary: {{ done_count }} / {{ all_count }}
+            </div>
+                <div class="col">
+                </div>
+                <div class="col">
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+
+                {% if pair %}
+                    <div class="col">
+                        <label>{{ pair.native.language.name }}</label>
+                        <div class="form-control inactive">
+                            {{ pair.native.question_label }}
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <form method="post" action="{% url 'evaluate_question' %}">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ form.vocabulary.errors }}
+                                <label for="{{ form.vocabulary.id_for_label }}">
+                                    {{ pair.foreign.language.name }}
+                                </label>
+                                {{ form.vocabulary }}
+                            </div>
+                            <input type="hidden" name="pair_id" value="{{ pair.id }}"/>
+                            <input type="hidden" name="lesson_id" value="{{ lesson.id }}"/>
+                            <input type="submit" class="btn btn-primary" value="Validate" />
+                        </form>
+                    </div>
+
+                {% else %}
+                    <div class="col-sm alert alert-info" role="alert">
+                        No unlearned vocabulary was found in the lesson.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
