@@ -62,10 +62,10 @@ def evaluate_question(request):
         if form.is_valid():
             if form.cleaned_data['vocabulary'] == question.foreign.text:
                 question.correct_count += 1
-                messages.success(request, "Die Antwort war korrekt!", extra_tags='alert-success')
+                messages.success(request, "Your answer was correct!", extra_tags='alert-success')
             else:
                 question.correct_count = 0
-                messages.error(request, "Die Antwort war leider falsch.", extra_tags='alert-danger')
+                messages.error(request, "Sorry, but your answer was wrong.", extra_tags='alert-danger')
             question.save()
 
         response = HttpResponseRedirect(reverse('lesson_view', args=(lesson_id,)))
