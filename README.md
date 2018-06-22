@@ -10,3 +10,6 @@ python manage.py migrate
 python manage.py createsuperuser
 ```
 Open http://localhost:8000/ in Browser
+
+## Usage
+First create vocabluary pairs in Django admin. Then add the pairs to a lesson.
