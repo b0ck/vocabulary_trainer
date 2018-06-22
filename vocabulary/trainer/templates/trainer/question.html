@@ -32,10 +32,17 @@
 
                 {% if pair %}
                     <div class="col">
-                        <label>{{ pair.native.language.name }}</label>
-                        <div class="form-control inactive">
-                            {{ pair.native.question_label }}
-                        </div>
+                        {% if reverse %}
+                            <label>{{ pair.foreign.language.name }}</label>
+                            <div class="form-control inactive">
+                                {{ pair.foreign.question_label }}
+                            </div>
+                        {% else %}
+                            <label>{{ pair.native.language.name }}</label>
+                            <div class="form-control inactive">
+                                {{ pair.native.question_label }}
+                            </div>
+                        {% endif %}
                     </div>
 
                     <div class="col">
@@ -44,12 +51,17 @@
                             <div class="form-group">
                                 {{ form.vocabulary.errors }}
                                 <label for="{{ form.vocabulary.id_for_label }}">
-                                    {{ pair.foreign.language.name }}
+                                    {% if reverse %}
+                                        {{ pair.native.language.name }}
+                                    {% else %}
+                                        {{ pair.foreign.language.name }}
+                                    {% endif %}
                                 </label>
                                 {{ form.vocabulary }}
                             </div>
                             <input type="hidden" name="pair_id" value="{{ pair.id }}"/>
                             <input type="hidden" name="lesson_id" value="{{ lesson.id }}"/>
+                            <input type="hidden" name="reverse" value="{{ reverse }}"/>
                             <input type="submit" class="btn btn-primary" value="Validate" />
                         </form>
                     </div>

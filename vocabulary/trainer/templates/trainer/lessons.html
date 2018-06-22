@@ -5,16 +5,26 @@
     <table class="table">
         <tr>
             <th>Lesson</th>
-            <th>Language</th>
+            <th>Quiz</th>
             <th>Status</th>
             <th>Reset</th>
         </tr>
         {% for lesson in lessons %}
         <tr>
             <td>
-                <a href="/lesson/{{ lesson.lesson.id }}">{{ lesson.lesson }}</a>
+                <!-- <a href="/lesson/{{ lesson.lesson.id }}">{{ lesson.lesson }}</a> -->
+                {{ lesson.lesson }}
             </td>
             <td>
+                {% if lesson.all_count > 0 %}
+                    <div>
+                        <a href="/lesson/{{ lesson.lesson.id }}">{{ lesson.native_language.name }} -> {{ lesson.foreign_language.name }}</a>
+                    </div>
+                    <div>
+                        <a href="/lesson/{{ lesson.lesson.id }}?direction=reverse">{{ lesson.foreign_language.name }} -> {{ lesson.native_language.name }}</a>
+                    </div>
+                {% endif %}
+
                 {{ lesson.language.name }}
             </td>
             <td>
